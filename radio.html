@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إذاعات إسلامية</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_index.css">
+</head>
+<body>
+    <nav class="navbar">
+    <!-- LOGO -->
+    <div class="logo">إذاعات إسلامية</div>
+
+    <!-- NAVIGATION MENU -->
+    <ul class="nav-links">
+
+      <!-- USING CHECKBOX HACK -->
+      <input type="checkbox" id="checkbox_toggle" />
+      <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+
+      <!-- NAVIGATION MENUS -->
+      <div class="menu">
+
+        <li><a href="index.html">الرئيسية</a></li>
+        
+
+        <li class="services">
+          <a href="#">الخدمات</a>
+
+          <!-- DROPDOWN MENU -->
+          <ul class="dropdown">
+            <li><a href="radio.html">الإذاعات </a></li>
+            <li><a href="quran.html">الإستماع للقرآن </a></li>
+            <li><a href="maroc_quran.html">قراءات مغربية</a></li>
+            <li><a href="time.html">مواقيت الصلاة</a></li> 
+          </ul>
+
+        </li>
+            <li><a href="contact.html">إتصال</a></li>
+      </div>
+    </ul>
+  </nav>
+    
+    <marquee direction="right" style="border:green 3px SOLID"> تضم هذه الصفحة عدة قوائم تشغيل لمعظم الإذاعات الإسلامية التي تعتني ببث القرآن الكريم و المواد العلمية و الدعوية</marquee>  
+
+    
+
+    <section id="podcast-info">
+        <h2 id="podcast-title"></h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRy-AICJ-JyQxC09jo0npi-Y-euOB4pOhUSijmzYMfpnthJVi_apwWC8rCHpx1TkKAwQ4&usqp=CAU" alt="Logo du podcast" id="podcast-logo">
+    </section>
+
+    <section id="dropdowns">
+        <select id="themes-dropdown">
+            <option value="" selected disabled>إختيار صنف الإذاعات</option>
+        </select>
+        <select id="categories-dropdown">
+            <option value="" selected disabled>إختيار مواد الإذاعات</option>
+        </select>
+        <select id="podcasts-dropdown">
+            <option value="" selected disabled>إختيار الإذاعة</option>
+        </select>
+    </section>
+    <section id="audio-player">
+        <audio controls id="audio-control">
+            <source src="" type="audio/mpeg">
+            Votre navigateur ne supporte pas l'élément audio.
+        </audio>
+    </section>
+
+    <script src="script.js"></script>
+
+    <footer>
+        <p class="lahrech"> LAHRECH HASSAN</p>
+        <p>Email: quran.morocco.reciters@gmail.com    </p>
+      </footer>
+      <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+    </body>
+</body>
+</html>

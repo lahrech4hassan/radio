@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-+0Y3h8f8sRjk9cFAe7/IKp+Yo8qBOkNdIBz0q8E0bhM4tq+29G+Bl2tHrT5ltEZOnxhPwj1gyiiIwL6yHU/6wQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style_index.css" />
+  <title>إذاعات إسلامية</title>
+</head>
+
+<body>
+  <nav class="navbar">
+    <!-- LOGO -->
+    <div class="logo">إذاعات إسلامية</div>
+
+    <!-- NAVIGATION MENU -->
+    <ul class="nav-links">
+
+      <!-- USING CHECKBOX HACK -->
+      <input type="checkbox" id="checkbox_toggle" />
+      <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+
+      <!-- NAVIGATION MENUS -->
+      <div class="menu">
+
+        <li><a href="index.html">الرئيسية</a></li>
+       
+
+        <li class="services">
+          <a href="#">الخدمات</a>
+
+          <!-- DROPDOWN MENU -->
+          <ul class="dropdown">
+            <li><a href="radio.html">الإذاعات </a></li>
+            <li><a href="quran.html">الإستماع للقرآن </a></li>
+            <li><a href="maroc_quran.html">قراءات مغربية</a></li>
+            <li><a href="time.html">مواقيت الصلاة</a></li> 
+          </ul>
+
+        </li>
+            <li><a href="contact.html">إتصال</a></li>
+      </div>
+    </ul>
+  </nav>
+
+<!------------------------------------>
+<div class="container">
+  <h2> قراءات مغربية</h2>
+  <div class="select-box">
+    <select id="authors" onchange="populateTracks()">
+      <option value="">اختر القارئ</option>
+      <!-- إضافة خيارات المؤلفين هنا -->
+    </select>
+    <select id="tracks" onchange="changeTrack()">
+      <option value="">اختر السورة</option>
+      <!-- سيتم ملء الخيارات بعد اختيار المؤلف -->
+    </select>
+  </div>
+  <div class="audio-player">
+    <div class="player-details">
+      <img id="author-image" src="https://play-lh.googleusercontent.com/NVHsela0VSrGo2WJ7hmCvKqyvQzTp0rFMB_21miaCWgxlTh-1RzsmeXa8ICcNR6Byg" alt="صورة المقرئ">
+      <h3 id="track-title"> مصاحف برواية ورش عن نافع</h3>
+    </div>
+    <audio id="audio" controls></audio>
+    <!--<button id="download-btn"><i class="fas fa-download">تحميل</i> </button>---->
+  </div>
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script>
+  const authors = [
+        { name: "محمد الجابري الحياني", image: "https://static.suratmp3.com/pics/reciters/thumbs/77_160_160.jpg", tracks: [
+        { title: "الفاتحة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_1_64kb.mp3" },
+      { title: "البقرة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_2_64kb.mp3" },
+      { title: "آل عمران", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_3_64kb.mp3" },
+      { title: "النساء", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_4_64kb.mp3" },
+      { title: "المائدة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_5_64kb.mp3" },
+      { title: "الأنعام", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_6_64kb.mp3" },
+      { title: "الأعراف", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_7_64kb.mp3" },
+      { title: "الأنفال", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_8_64kb.mp3" },
+      { title: "التوبة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_9_64kb.mp3" },
+      { title: "يونس", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_10_64kb.mp3" },
+      { title: "هود", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_11_64kb.mp3" },
+      { title: "يوسف", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_12_64kb.mp3" },
+      { title: "الرعد", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_13_64kb.mp3" },
+      { title: "ابراهيم", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_14_64kb.mp3" },
+      { title: "الحجر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_15_64kb.mp3" },
+      { title: "النحل", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_16_64kb.mp3" },
+      { title: "الإسراء", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_17_64kb.mp3" },
+      { title: "الكهف", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_18_64kb.mp3" },
+      { title: "مريم", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_19_64kb.mp3" },
+      { title: "طه", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_20_64kb.mp3" },
+      { title: "الأنبياء", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_21_64kb.mp3" },
+      { title: "الحج", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_22_64kb.mp3" },
+      { title: "المؤمنون", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_23_64kb.mp3" },
+      { title: "النور", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_24_64kb.mp3" },
+      { title: "الفرقان", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_25_64kb.mp3" },
+      { title: "الشعراء", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_26_64kb.mp3" },
+      { title: "النمل", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_27_64kb.mp3" },
+      { title: "القصص", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_28_64kb.mp3" },
+      { title: "العنكبوت", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_29_64kb.mp3" },
+      { title: "الروم", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_30_64kb.mp3" },
+      { title: "لقمان", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_31_64kb.mp3" },
+      { title: "السجدة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_32_64kb.mp3" },
+      { title: "الأحزاب", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_33_64kb.mp3" },
+      { title: "سبأ", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_34_64kb.mp3" },
+      { title: "فاطر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_35_64kb.mp3" },
+      { title: "يس", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_36_64kb.mp3" },
+      { title: "الصافات", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_37_64kb.mp3" },
+      { title: "سورة ص", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_38_64kb.mp3" },
+      { title: "الزمر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_39_64kb.mp3" },
+      { title: "غافر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_40_64kb.mp3" },
+      { title: "فصلت", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_41_64kb.mp3" },
+      { title: "الشورى", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_42_64kb.mp3" },
+      { title: "الزخرف", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_43_64kb.mp3" },
+      { title: "الدخان", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_44_64kb.mp3" },
+      { title: "الجاثية", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_45_64kb.mp3" },
+      { title: "الأحقاف", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_46_64kb.mp3" },
+      { title: "محمد", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_47_64kb.mp3" },
+      { title: "الفتح", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_48_64kb.mp3" },
+      { title: "الحجرات", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_49_64kb.mp3" },
+      { title: "سورة ق", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_50_64kb.mp3" },
+      { title: "الذاريات", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_51_64kb.mp3" },
+      { title: "الطور", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_52_64kb.mp3" },
+      { title: "النجم", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_53_64kb.mp3" },
+      { title: "القمر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_54_64kb.mp3" },
+      { title: "الرحمن", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_55_64kb.mp3" },
+      { title: "الواقعة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_56_64kb.mp3" },
+      { title: "الحديد", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_57_64kb.mp3" },
+      { title: "المجادلة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_58_64kb.mp3" },
+      { title: "الحشر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_59_64kb.mp3" },
+      { title: "الممتحنة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_60_64kb.mp3" },
+      { title: "الصف", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_61_64kb.mp3" },
+      { title: "الجمعة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_62_64kb.mp3" },
+      { title: "المنافقون", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_63_64kb.mp3" },
+      { title: "التغابن", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_64_64kb.mp3" },
+      { title: "الطلاق", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_65_64kb.mp3" },
+      { title: "التحريم", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_66_64kb.mp3" },
+      { title: "الملك", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_67_64kb.mp3" },
+      { title: "القلم", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_68_64kb.mp3" },
+      { title: "الحاقة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_69_64kb.mp3" },
+      { title: "المعارج", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_70_64kb.mp3" },
+      { title: "نوح", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_71_64kb.mp3" },
+      { title: "الجن", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_72_64kb.mp3" },
+      { title: "المزمل", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_73_64kb.mp3" },
+      { title: "المدثر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_74_64kb.mp3" },
+      { title: "القيامة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_75_64kb.mp3" },
+      { title: "الإنسان", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_76_64kb.mp3" },
+      { title: "المرسلات", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_77_64kb.mp3" },
+      { title: "النبأ", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_78_64kb.mp3" },
+      { title: "النازعات", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_79_64kb.mp3" },
+      { title: "عبس", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_80_64kb.mp3" },
+      { title: "التكوير", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_81_64kb.mp3" },
+      { title: "الإنفطار", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_82_64kb.mp3" },
+      { title: "المطففين", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_83_64kb.mp3" },
+      { title: "الانشقاق", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_84_64kb.mp3" },
+      { title: "البروج", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_85_64kb.mp3" },
+      { title: "الطارق", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_86_64kb.mp3" },
+      { title: "الأعلى", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_87_64kb.mp3" },
+      { title: "الغاشية", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_88_64kb.mp3" },
+      { title: "الفجر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_89_64kb.mp3" },
+      { title: "البلد", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_90_64kb.mp3" },
+      { title: "الشمس", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_91_64kb.mp3" },
+      { title: "الليل", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_92_64kb.mp3" },
+      { title: "الضحى", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_93_64kb.mp3" },
+      { title: "الشرح", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_94_64kb.mp3" },
+      { title: "التين", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_95_64kb.mp3" },
+      { title: "العلق", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_96_64kb.mp3" },
+      { title: "القدر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_97_64kb.mp3" },
+      { title: "البينة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_98_64kb.mp3" },
+      { title: "الزلزلة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_99_64kb.mp3" },
+      { title: "العاديات", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_100_64kb.mp3" },
+      { title: "القارعة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_101_64kb.mp3" },
+      { title: "التكاثر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_102_64kb.mp3" },
+      { title: "العصر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_103_64kb.mp3" },
+      { title: "الهمزة", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_104_64kb.mp3" },
+      { title: "الفيل", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_105_64kb.mp3" },
+      { title: "قريش", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_106_64kb.mp3" },
+      { title: "الماعون", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_107_64kb.mp3" },
+      { title: "الكوثر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_108_64kb.mp3" },
+      { title: "الكافرون", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_109_64kb.mp3" },
+      { title: "النصر", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_110_64kb.mp3" },
+      { title: "المسد", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_111_64kb.mp3" },
+      { title: "الإخلاص", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_112_64kb.mp3" },
+      { title: "الفلق", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_113_64kb.mp3" },
+      { title: "الناس", audio: "https://archive.org/download/koran-quran-full--114-sora---by--mohammad-algabry--al7ayyaany--rewayt--warsh--/sura_114_64kb.mp3" },
+
+    ]
+  },
+  { name: "عبد الحميد احساين", image: "https://static.suratmp3.com/pics/reciters/thumbs/76_100_100.jpg", tracks: [
+  { title: "الفاتحة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/001.mp3" },
+{ title: "البقرة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/002.mp3" },
+{ title: "آل عمران", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/003.mp3" },
+{ title: "النساء", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/004.mp3" },
+{ title: "المائدة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/005.mp3" },
+{ title: "الأنعام", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/006.mp3" },
+{ title: "الأعراف", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/007.mp3" },
+{ title: "الأنفال", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/008.mp3" },
+{ title: "التوبة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/009.mp3" },
+{ title: "يونس", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/010.mp3" },
+{ title: "هود", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/011.mp3" },
+{ title: "يوسف", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/012.mp3" },
+{ title: "الرعد", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/013.mp3" },
+{ title: "ابراهيم", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/014.mp3" },
+{ title: "الحجر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/015.mp3" },
+{ title: "النحل", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/016.mp3" },
+{ title: "الإسراء", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/017.mp3" },
+{ title: "الكهف", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/018.mp3" },
+{ title: "مريم", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/019.mp3" },
+{ title: "طه", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/020.mp3" },
+{ title: "الأنبياء", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/021.mp3" },
+{ title: "الحج", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/022.mp3" },
+{ title: "المؤمنون", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/023.mp3" },
+{ title: "النور", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/024.mp3" },
+{ title: "الفرقان", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/025.mp3" },
+{ title: "الشعراء", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/026.mp3" },
+{ title: "النمل", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/027.mp3" },
+{ title: "القصص", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/028.mp3" },
+{ title: "العنكبوت", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/029.mp3" },
+{ title: "الروم", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/030.mp3" },
+{ title: "لقمان", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/031.mp3" },
+{ title: "السجدة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/032.mp3" },
+{ title: "الأحزاب", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/033.mp3" },
+{ title: "سبأ", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/034.mp3" },
+{ title: "فاطر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/035.mp3" },
+{ title: "يس", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/036.mp3" },
+{ title: "الصافات", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/037.mp3" },
+{ title: "سورة ص", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/038.mp3" },
+{ title: "الزمر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/039.mp3" },
+{ title: "غافر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/040.mp3" },
+{ title: "فصلت", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/041.mp3" },
+{ title: "الشورى", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/042.mp3" },
+{ title: "الزخرف", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/043.mp3" },
+{ title: "الدخان", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/044.mp3" },
+{ title: "الجاثية", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/045.mp3" },
+{ title: "الأحقاف", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/046.mp3" },
+{ title: "محمد", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/047.mp3" },
+{ title: "الفتح", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/048.mp3" },
+{ title: "الحجرات", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/049.mp3" },
+{ title: "سورة ق", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/050.mp3" },
+{ title: "الذاريات", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/051.mp3" },
+{ title: "الطور", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/052.mp3" },
+{ title: "النجم", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/053.mp3" },
+{ title: "القمر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/054.mp3" },
+{ title: "الرحمن", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/055.mp3" },
+{ title: "الواقعة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/056.mp3" },
+{ title: "الحديد", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/057.mp3" },
+{ title: "المجادلة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/058.mp3" },
+{ title: "الحشر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/059.mp3" },
+{ title: "الممتحنة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/060.mp3" },
+{ title: "الصف", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/061.mp3" },
+{ title: "الجمعة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/062.mp3" },
+{ title: "المنافقون", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/063.mp3" },
+{ title: "التغابن", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/064.mp3" },
+{ title: "الطلاق", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/065.mp3" },
+{ title: "التحريم", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/066.mp3" },
+{ title: "الملك", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/067.mp3" },
+{ title: "القلم", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/068.mp3" },
+{ title: "الحاقة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/069.mp3" },
+{ title: "المعارج", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/070.mp3" },
+{ title: "نوح", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/071.mp3" },
+{ title: "الجن", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/072.mp3" },
+{ title: "المزمل", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/073.mp3" },
+{ title: "المدثر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/074.mp3" },
+{ title: "القيامة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/075.mp3" },
+{ title: "الإنسان", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/076.mp3" },
+{ title: "المرسلات", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/077.mp3" },
+{ title: "النبأ", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/078.mp3" },
+{ title: "النازعات", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/079.mp3" },
+{ title: "عبس", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/080.mp3" },
+{ title: "التكوير", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/081.mp3" },
+{ title: "الإنفطار", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/082.mp3" },
+{ title: "المطففين", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/083.mp3" },
+{ title: "الانشقاق", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/084.mp3" },
+{ title: "البروج", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/085.mp3" },
+{ title: "الطارق", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/086.mp3" },
+{ title: "الأعلى", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/087.mp3" },
+{ title: "الغاشية", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/088.mp3" },
+{ title: "الفجر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/089.mp3" },
+{ title: "البلد", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/090.mp3" },
+{ title: "الشمس", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/091.mp3" },
+{ title: "الليل", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/092.mp3" },
+{ title: "الضحى", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/093.mp3" },
+{ title: "الشرح", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/094.mp3" },
+{ title: "التين", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/095.mp3" },
+{ title: "العلق", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/096.mp3" },
+{ title: "القدر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/097.mp3" },
+{ title: "البينة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/098.mp3" },
+{ title: "الزلزلة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/099.mp3" },
+{ title: "العاديات", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/100.mp3" },
+{ title: "القارعة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/101.mp3" },
+{ title: "التكاثر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/102.mp3" },
+{ title: "العصر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/103.mp3" },
+{ title: "الهمزة", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/104.mp3" },
+{ title: "الفيل", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/105.mp3" },
+{ title: "قريش", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/106.mp3" },
+{ title: "الماعون", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/107.mp3" },
+{ title: "الكوثر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/108.mp3" },
+{ title: "الكافرون", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/109.mp3" },
+{ title: "النصر", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/110.mp3" },
+{ title: "المسد", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/111.mp3" },
+{ title: "الإخلاص", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/112.mp3" },
+{ title: "الفلق", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/113.mp3" },
+{ title: "الناس", audio: "https://archive.org/download/114-sora-abd-alhameed-ahsayn--quran-warsh-64kb/114.mp3" },
+ 
+    ]
+  },
+
+  { name: " محمد الطيب حمدان", image: "https://static.suratmp3.com/pics/reciters/thumbs/79_160_160.jpg", tracks: [
+  { title: "الفاتحة", audio: "https://archive.org/download/way2sona_20151231_1253/001_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "البقرة", audio: "https://archive.org/download/way2sona_20151231_1253/002_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "آل عمران", audio: "https://archive.org/download/way2sona_20151231_1253/003_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "النساء", audio: "https://archive.org/download/way2sona_20151231_1253/004_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المائدة", audio: "https://archive.org/download/way2sona_20151231_1253/005_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الأنعام", audio: "https://archive.org/download/way2sona_20151231_1253/006_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الأعراف", audio: "https://archive.org/download/way2sona_20151231_1253/007_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الأنفال", audio: "https://archive.org/download/way2sona_20151231_1253/008_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "التوبة", audio: "https://archive.org/download/way2sona_20151231_1253/009_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "يونس", audio: "https://archive.org/download/way2sona_20151231_1253/010_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "هود", audio: "https://archive.org/download/way2sona_20151231_1253/011_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "يوسف", audio: "https://archive.org/download/way2sona_20151231_1253/012_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الرعد", audio: "https://archive.org/download/way2sona_20151231_1253/013_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "ابراهيم", audio: "https://archive.org/download/way2sona_20151231_1253/014_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الحجر", audio: "https://archive.org/download/way2sona_20151231_1253/015_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "النحل", audio: "https://archive.org/download/way2sona_20151231_1253/016_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الإسراء", audio: "https://archive.org/download/way2sona_20151231_1253/017_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الكهف", audio: "https://archive.org/download/way2sona_20151231_1253/018_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "مريم", audio: "https://archive.org/download/way2sona_20151231_1253/019_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "طه", audio: "https://archive.org/download/way2sona_20151231_1253/020_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الأنبياء", audio: "https://archive.org/download/way2sona_20151231_1253/021_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الحج", audio: "https://archive.org/download/way2sona_20151231_1253/022_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المؤمنون", audio: "https://archive.org/download/way2sona_20151231_1253/023_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "النور", audio: "https://archive.org/download/way2sona_20151231_1253/024_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الفرقان", audio: "https://archive.org/download/way2sona_20151231_1253/025_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الشعراء", audio: "https://archive.org/download/way2sona_20151231_1253/026_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "النمل", audio: "https://archive.org/download/way2sona_20151231_1253/027_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "القصص", audio: "https://archive.org/download/way2sona_20151231_1253/028_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "العنكبوت", audio: "https://archive.org/download/way2sona_20151231_1253/029_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الروم", audio: "https://archive.org/download/way2sona_20151231_1253/030_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "لقمان", audio: "https://archive.org/download/way2sona_20151231_1253/031_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "السجدة", audio: "https://archive.org/download/way2sona_20151231_1253/032_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الأحزاب", audio: "https://archive.org/download/way2sona_20151231_1253/033_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "سبأ", audio: "https://archive.org/download/way2sona_20151231_1253/034_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "فاطر", audio: "https://archive.org/download/way2sona_20151231_1253/035_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "يس", audio: "https://archive.org/download/way2sona_20151231_1253/036_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الصافات", audio: "https://archive.org/download/way2sona_20151231_1253/037_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "سورة ص", audio: "https://archive.org/download/way2sona_20151231_1253/038_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الزمر", audio: "https://archive.org/download/way2sona_20151231_1253/039_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "غافر", audio: "https://archive.org/download/way2sona_20151231_1253/040_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "فصلت", audio: "https://archive.org/download/way2sona_20151231_1253/041_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الشورى", audio: "https://archive.org/download/way2sona_20151231_1253/042_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الزخرف", audio: "https://archive.org/download/way2sona_20151231_1253/043_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الدخان", audio: "https://archive.org/download/way2sona_20151231_1253/044_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الجاثية", audio: "https://archive.org/download/way2sona_20151231_1253/045_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الأحقاف", audio: "https://archive.org/download/way2sona_20151231_1253/046_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "محمد", audio: "https://archive.org/download/way2sona_20151231_1253/047_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الفتح", audio: "https://archive.org/download/way2sona_20151231_1253/048_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الحجرات", audio: "https://archive.org/download/way2sona_20151231_1253/049_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "سورة ق", audio: "https://archive.org/download/way2sona_20151231_1253/050_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الذاريات", audio: "https://archive.org/download/way2sona_20151231_1253/051_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الطور", audio: "https://archive.org/download/way2sona_20151231_1253/052_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "النجم", audio: "https://archive.org/download/way2sona_20151231_1253/053_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "القمر", audio: "https://archive.org/download/way2sona_20151231_1253/054_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الرحمن", audio: "https://archive.org/download/way2sona_20151231_1253/055_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الواقعة", audio: "https://archive.org/download/way2sona_20151231_1253/056_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الحديد", audio: "https://archive.org/download/way2sona_20151231_1253/057_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المجادلة", audio: "https://archive.org/download/way2sona_20151231_1253/058_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الحشر", audio: "https://archive.org/download/way2sona_20151231_1253/059_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الممتحنة", audio: "https://archive.org/download/way2sona_20151231_1253/060_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الصف", audio: "https://archive.org/download/way2sona_20151231_1253/061_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الجمعة", audio: "https://archive.org/download/way2sona_20151231_1253/062_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المنافقون", audio: "https://archive.org/download/way2sona_20151231_1253/063_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "التغابن", audio: "https://archive.org/download/way2sona_20151231_1253/064_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الطلاق", audio: "https://archive.org/download/way2sona_20151231_1253/065_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "التحريم", audio: "https://archive.org/download/way2sona_20151231_1253/066_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الملك", audio: "https://archive.org/download/way2sona_20151231_1253/067_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "القلم", audio: "https://archive.org/download/way2sona_20151231_1253/068_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الحاقة", audio: "https://archive.org/download/way2sona_20151231_1253/069_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المعارج", audio: "https://archive.org/download/way2sona_20151231_1253/070_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "نوح", audio: "https://archive.org/download/way2sona_20151231_1253/071_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الجن", audio: "https://archive.org/download/way2sona_20151231_1253/072_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المزمل", audio: "https://archive.org/download/way2sona_20151231_1253/073_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المدثر", audio: "https://archive.org/download/way2sona_20151231_1253/074_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "القيامة", audio: "https://archive.org/download/way2sona_20151231_1253/075_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الإنسان", audio: "https://archive.org/download/way2sona_20151231_1253/076_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المرسلات", audio: "https://archive.org/download/way2sona_20151231_1253/077_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "النبأ", audio: "https://archive.org/download/way2sona_20151231_1253/078_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "النازعات", audio: "https://archive.org/download/way2sona_20151231_1253/079_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "عبس", audio: "https://archive.org/download/way2sona_20151231_1253/080_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "التكوير", audio: "https://archive.org/download/way2sona_20151231_1253/081_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الإنفطار", audio: "https://archive.org/download/way2sona_20151231_1253/082_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المطففين", audio: "https://archive.org/download/way2sona_20151231_1253/083_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الانشقاق", audio: "https://archive.org/download/way2sona_20151231_1253/084_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "البروج", audio: "https://archive.org/download/way2sona_20151231_1253/085_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الطارق", audio: "https://archive.org/download/way2sona_20151231_1253/086_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الأعلى", audio: "https://archive.org/download/way2sona_20151231_1253/087_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الغاشية", audio: "https://archive.org/download/way2sona_20151231_1253/088_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الفجر", audio: "https://archive.org/download/way2sona_20151231_1253/089_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "البلد", audio: "https://archive.org/download/way2sona_20151231_1253/090_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الشمس", audio: "https://archive.org/download/way2sona_20151231_1253/091_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الليل", audio: "https://archive.org/download/way2sona_20151231_1253/092_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الضحى", audio: "https://archive.org/download/way2sona_20151231_1253/093_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الشرح", audio: "https://archive.org/download/way2sona_20151231_1253/094_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "التين", audio: "https://archive.org/download/way2sona_20151231_1253/095_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "العلق", audio: "https://archive.org/download/way2sona_20151231_1253/096_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "القدر", audio: "https://archive.org/download/way2sona_20151231_1253/097_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "البينة", audio: "https://archive.org/download/way2sona_20151231_1253/098_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الزلزلة", audio: "https://archive.org/download/way2sona_20151231_1253/099_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "العاديات", audio: "https://archive.org/download/way2sona_20151231_1253/100_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "القارعة", audio: "https://archive.org/download/way2sona_20151231_1253/101_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "التكاثر", audio: "https://archive.org/download/way2sona_20151231_1253/102_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "العصر", audio: "https://archive.org/download/way2sona_20151231_1253/103_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الهمزة", audio: "https://archive.org/download/way2sona_20151231_1253/104_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الفيل", audio: "https://archive.org/download/way2sona_20151231_1253/105_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "قريش", audio: "https://archive.org/download/way2sona_20151231_1253/106_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الماعون", audio: "https://archive.org/download/way2sona_20151231_1253/107_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الكوثر", audio: "https://archive.org/download/way2sona_20151231_1253/108_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الكافرون", audio: "https://archive.org/download/way2sona_20151231_1253/109_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "النصر", audio: "https://archive.org/download/way2sona_20151231_1253/110_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "المسد", audio: "https://archive.org/download/way2sona_20151231_1253/111_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الإخلاص", audio: "https://archive.org/download/way2sona_20151231_1253/112_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الفلق", audio: "https://archive.org/download/way2sona_20151231_1253/113_uP_bY_mUSLEm.Ettounssi.mp3" },
+{ title: "الناس", audio: "https://archive.org/download/way2sona_20151231_1253/114_uP_bY_mUSLEm.Ettounssi.mp3" },
+ 
+    ]
+  },
+
+  { name: "محمد الكنتاوي", image: "https://static.suratmp3.com/pics/reciters/thumbs/78_160_160.jpg", tracks: [
+  { title: "الفاتحة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Fatiha-Muhammad-Al-Kntawee.mp3" },
+{ title: "البقرة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Baqara-Muhammad-Al-Kntawee.mp3" },
+{ title: "آل عمران", audio: "https://archive.org/download/way2sona_20160101_2152/aal-3mran-Muhammad-Al-Kntawee.mp3" },
+{ title: "النساء", audio: "https://archive.org/download/way2sona_20160101_2152/An-Nisa-Muhammad-Al-Kntawee.mp3" },
+{ title: "المائدة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Ma%27eda-Muhammad-Al-Kntawee.mp3" },
+{ title: "الأنعام", audio: "https://archive.org/download/way2sona_20160101_2152/Al-An3aam-Muhammad-Al-Kntawee.mp3" },
+{ title: "الأعراف", audio: "https://archive.org/download/way2sona_20160101_2152/Al-A3raf-Muhammad-Al-Kntawee.mp3" },
+{ title: "الأنفال", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Anfal-Muhammad-Al-Kntawee.mp3" },
+{ title: "التوبة", audio: "https://archive.org/download/way2sona_20160101_2152/At-Tawba-Muhammad-Al-Kntawee.mp3" },
+{ title: "يونس", audio: "https://archive.org/download/way2sona_20160101_2152/Yunus-Muhammad-Al-Kntawee.mp3" },
+{ title: "هود", audio: "https://archive.org/download/way2sona_20160101_2152/Hud-Muhammad-Al-Kntawee.mp3" },
+{ title: "يوسف", audio: "https://archive.org/download/way2sona_20160101_2152/Yusuf-Muhammad-Al-Kntawee.mp3" },
+{ title: "الرعد", audio: "https://archive.org/download/way2sona_20160101_2152/Ar-Ra3d-Muhammad-Al-Kntawee.mp3" },
+{ title: "ابراهيم", audio: "https://archive.org/download/way2sona_20160101_2152/Ibrahim-Muhammad-Al-Kntawee.mp3" },
+{ title: "الحجر", audio: "https://archive.org/download/way2sona_20160101_2152/Al-7ajjr-Muhammad-Al-Kntawee.mp3" },
+{ title: "النحل", audio: "https://archive.org/download/way2sona_20160101_2152/An-Na7l-Muhammad-Al-Kntawee.mp3" },
+{ title: "الإسراء", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Isra%27-Muhammad-Al-Kntawee.mp3" },
+{ title: "الكهف", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Kahf-Muhammad-Al-Kntawee.mp3" },
+{ title: "مريم", audio: "https://archive.org/download/way2sona_20160101_2152/Maryam-Muhammad-Al-Kntawee.mp3" },
+{ title: "طه", audio: "https://archive.org/download/way2sona_20160101_2152/Taha-Muhammad-Al-Kntawee.mp3" },
+{ title: "الأنبياء", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Anbiya%27-Muhammad-Al-Kntawee.mp3" },
+{ title: "الحج", audio: "https://archive.org/download/way2sona_20160101_2152/Al-7ajj-Muhammad-Al-Kntawee.mp3" },
+{ title: "المؤمنون", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Mu%27menoon-Muhammad-Al-Kntawee.mp3" },
+{ title: "النور", audio: "https://archive.org/download/way2sona_20160101_2152/An-Noor-Muhammad-Al-Kntawee.mp3" },
+{ title: "الفرقان", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Furqan-Muhammad-Al-Kntawee.mp3" },
+{ title: "الشعراء", audio: "https://archive.org/download/way2sona_20160101_2152/Ash-Shu3ara%27-Muhammad-Al-Kntawee.mp3" },
+{ title: "النمل", audio: "https://archive.org/download/way2sona_20160101_2152/An-Naml-Muhammad-Al-Kntawee.mp3" },
+{ title: "القصص", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Qasas-Muhammad-Al-Kntawee.mp3" },
+{ title: "العنكبوت", audio: "https://archive.org/download/way2sona_20160101_2152/Al-3ankaboot-Muhammad-Al-Kntawee.mp3" },
+{ title: "الروم", audio: "https://archive.org/download/way2sona_20160101_2152/Ar-Room-Muhammad-Al-Kntawee.mp3" },
+{ title: "لقمان", audio: "https://archive.org/download/way2sona_20160101_2152/Luqman-Muhammad-Al-Kntawee.mp3" },
+{ title: "السجدة", audio: "https://archive.org/download/way2sona_20160101_2152/As-Sajda-Muhammad-Al-Kntawee.mp3" },
+{ title: "الأحزاب", audio: "https://archive.org/download/way2sona_20160101_2152/Al-A7zab-Muhammad-Al-Kntawee.mp3" },
+{ title: "سبأ", audio: "https://archive.org/download/way2sona_20160101_2152/sba%27-Muhammad-Al-Kntawee.mp3" },
+{ title: "فاطر", audio: "https://archive.org/download/way2sona_20160101_2152/Fa6er-Muhammad-Al-Kntawee.mp3" },
+{ title: "يس", audio: "https://archive.org/download/way2sona_20160101_2152/Ya-Seen-Muhammad-Al-Kntawee.mp3" },
+{ title: "الصافات", audio: "https://archive.org/download/way2sona_20160101_2152/As-Saaffat-Muhammad-Al-Kntawee.mp3" },
+{ title: "سورة ص", audio: "https://archive.org/download/way2sona_20160101_2152/Sad-Muhammad-Al-Kntawee.mp3" },
+{ title: "الزمر", audio: "https://archive.org/download/way2sona_20160101_2152/Az-Zumar-Muhammad-Al-Kntawee.mp3" },
+{ title: "غافر", audio: "https://archive.org/download/way2sona_20160101_2152/Ghafir-Muhammad-Al-Kntawee.mp3" },
+{ title: "فصلت", audio: "https://archive.org/download/way2sona_20160101_2152/Fussilat-Muhammad-Al-Kntawee.mp3" },
+{ title: "الشورى", audio: "https://archive.org/download/way2sona_20160101_2152/Ash-Shura-Muhammad-Al-Kntawee.mp3" },
+{ title: "الزخرف", audio: "https://archive.org/download/way2sona_20160101_2152/Az-Zukhruf-Muhammad-Al-Kntawee.mp3" },
+{ title: "الدخان", audio: "https://archive.org/download/way2sona_20160101_2152/Ad-Dukhan-Muhammad-Al-Kntawee.mp3" },
+{ title: "الجاثية", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Jathiya-Muhammad-Al-Kntawee.mp3" },
+{ title: "الأحقاف", audio: "https://archive.org/download/way2sona_20160101_2152/Al-A7qaf-Muhammad-Al-Kntawee.mp3" },
+{ title: "محمد", audio: "https://archive.org/download/way2sona_20160101_2152/Muhammad-Muhammad-Al-Kntawee.mp3" },
+{ title: "الفتح", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Fat7-Muhammad-Al-Kntawee.mp3" },
+{ title: "الحجرات", audio: "https://archive.org/download/way2sona_20160101_2152/Al-7ujraat-Muhammad-Al-Kntawee.mp3" },
+{ title: "سورة ق", audio: "https://archive.org/download/way2sona_20160101_2152/Qaf-Muhammad-Al-Kntawee.mp3" },
+{ title: "الذاريات", audio: "https://archive.org/download/way2sona_20160101_2152/Az-Zariyat-Muhammad-Al-Kntawee.mp3" },
+{ title: "الطور", audio: "https://archive.org/download/way2sona_20160101_2152/At-6ur-Muhammad-Al-Kntawee.mp3" },
+{ title: "النجم", audio: "https://archive.org/download/way2sona_20160101_2152/An-Najm-Muhammad-Al-Kntawee.mp3" },
+{ title: "القمر", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Qamar-Muhammad-Al-Kntawee.mp3" },
+{ title: "الرحمن", audio: "https://archive.org/download/way2sona_20160101_2152/Ar-Ra7man-Muhammad-Al-Kntawee.mp3" },
+{ title: "الواقعة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Waqi3a-Muhammad-Al-Kntawee.mp3" },
+{ title: "الحديد", audio: "https://archive.org/download/way2sona_20160101_2152/Al-7adid-Muhammad-Al-Kntawee.mp3" },
+{ title: "المجادلة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Mujadala-Muhammad-Al-Kntawee.mp3" },
+{ title: "الحشر", audio: "https://archive.org/download/way2sona_20160101_2152/Al-7ashr-Muhammad-Al-Kntawee.mp3" },
+{ title: "الممتحنة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Mumta7ana-Muhammad-Al-Kntawee.mp3" },
+{ title: "الصف", audio: "https://archive.org/download/way2sona_20160101_2152/As-Saff-Muhammad-Al-Kntawee.mp3" },
+{ title: "الجمعة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Jumu3a-Muhammad-Al-Kntawee.mp3" },
+{ title: "المنافقون", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Munafiqoon-Muhammad-Al-Kntawee.mp3" },
+{ title: "التغابن", audio: "https://archive.org/download/way2sona_20160101_2152/At-Taghabun-Muhammad-Al-Kntawee.mp3" },
+{ title: "الطلاق", audio: "https://archive.org/download/way2sona_20160101_2152/At-Talaq-Muhammad-Al-Kntawee.mp3" },
+{ title: "التحريم", audio: "https://archive.org/download/way2sona_20160101_2152/At-Ta7rim-Muhammad-Al-Kntawee.mp3" },
+{ title: "الملك", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Mulk-Muhammad-Al-Kntawee.mp3" },
+{ title: "القلم", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Qalam-Muhammad-Al-Kntawee.mp3" },
+{ title: "الحاقة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-7aaqqa-Muhammad-Al-Kntawee.mp3" },
+{ title: "المعارج", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Ma3arij-Muhammad-Al-Kntawee.mp3" },
+{ title: "نوح", audio: "https://archive.org/download/way2sona_20160101_2152/Noo7-Muhammad-Al-Kntawee.mp3" },
+{ title: "الجن", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Jinn-Muhammad-Al-Kntawee.mp3" },
+{ title: "المزمل", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Muzzammil-Muhammad-Al-Kntawee.mp3" },
+{ title: "المدثر", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Muddather-Muhammad-Al-Kntawee.mp3" },
+{ title: "القيامة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Qiyama-Muhammad-Al-Kntawee.mp3" },
+{ title: "الإنسان", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Insan-Muhammad-Al-Kntawee.mp3" },
+{ title: "المرسلات", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Mursalat-Muhammad-Al-Kntawee.mp3" },
+{ title: "النبأ", audio: "https://archive.org/download/way2sona_20160101_2152/An-Nab%27-Muhammad-Al-Kntawee.mp3" },
+{ title: "النازعات", audio: "https://archive.org/download/way2sona_20160101_2152/An-Nazi3at-Muhammad-Al-Kntawee.mp3" },
+{ title: "عبس", audio: "https://archive.org/download/way2sona_20160101_2152/3basa-Muhammad-Al-Kntawee.mp3" },
+{ title: "التكوير", audio: "https://archive.org/download/way2sona_20160101_2152/At-Takwir-Muhammad-Al-Kntawee.mp3" },
+{ title: "الإنفطار", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Infi6ar-Muhammad-Al-Kntawee.mp3" },
+{ title: "المطففين", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Mutaffifin-Muhammad-Al-Kntawee.mp3" },
+{ title: "الانشقاق", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Inshiqaq-Muhammad-Al-Kntawee.mp3" },
+{ title: "البروج", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Burooj-Muhammad-Al-Kntawee.mp3" },
+{ title: "الطارق", audio: "https://archive.org/download/way2sona_20160101_2152/At-6ariq-Muhammad-Al-Kntawee.mp3" },
+{ title: "الأعلى", audio: "https://archive.org/download/way2sona_20160101_2152/Al-A3la-Muhammad-Al-Kntawee.mp3" },
+{ title: "الغاشية", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Ghashiya-Muhammad-Al-Kntawee.mp3" },
+{ title: "الفجر", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Fajr-Muhammad-Al-Kntawee.mp3" },
+{ title: "البلد", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Balad-Muhammad-Al-Kntawee.mp3" },
+{ title: "الشمس", audio: "https://archive.org/download/way2sona_20160101_2152/Ash-Shams-Muhammad-Al-Kntawee.mp3" },
+{ title: "الليل", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Layl-Muhammad-Al-Kntawee.mp3" },
+{ title: "الضحى", audio: "https://archive.org/download/way2sona_20160101_2152/Ad-Dhu7a-Muhammad-Al-Kntawee.mp3" },
+{ title: "الشرح", audio: "https://archive.org/download/way2sona_20160101_2152/As-Sharh-Muhammad-Al-Kntawee.mp3" },
+{ title: "التين", audio: "https://archive.org/download/way2sona_20160101_2152/At-Tin-Muhammad-Al-Kntawee.mp3" },
+{ title: "العلق", audio: "https://archive.org/download/way2sona_20160101_2152/Al-3alaq-Muhammad-Al-Kntawee.mp3" },
+{ title: "القدر", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Qadr-Muhammad-Al-Kntawee.mp3" },
+{ title: "البينة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Bayyina-Muhammad-Al-Kntawee.mp3" },
+{ title: "الزلزلة", audio: "https://archive.org/download/way2sona_20160101_2152/Az-Zalzala-Muhammad-Al-Kntawee.mp3" },
+{ title: "العاديات", audio: "https://archive.org/download/way2sona_20160101_2152/Al-3adiyat-Muhammad-Al-Kntawee.mp3" },
+{ title: "القارعة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Qari3a-Muhammad-Al-Kntawee.mp3" },
+{ title: "التكاثر", audio: "https://archive.org/download/way2sona_20160101_2152/At-Takathur-Muhammad-Al-Kntawee.mp3" },
+{ title: "العصر", audio: "https://archive.org/download/way2sona_20160101_2152/Al-3asr-Muhammad-Al-Kntawee.mp3" },
+{ title: "الهمزة", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Humaza-Muhammad-Al-Kntawee.mp3" },
+{ title: "الفيل", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Fil-Muhammad-Al-Kntawee.mp3" },
+{ title: "قريش", audio: "https://archive.org/download/way2sona_20160101_2152/Quraish-Muhammad-Al-Kntawee.mp3" },
+{ title: "الماعون", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Ma3un-Muhammad-Al-Kntawee.mp3" },
+{ title: "الكوثر", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Kauther-Muhammad-Al-Kntawee.mp3" },
+{ title: "الكافرون", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Kafiroon-Muhammad-Al-Kntawee.mp3" },
+{ title: "النصر", audio: "https://archive.org/download/way2sona_20160101_2152/An-Nasr-Muhammad-Al-Kntawee.mp3" },
+{ title: "المسد", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Masadd-Muhammad-Al-Kntawee.mp3" },
+{ title: "الإخلاص", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Ikhlas-Muhammad-Al-Kntawee.mp3" },
+{ title: "الفلق", audio: "https://archive.org/download/way2sona_20160101_2152/Al-Falaq-Muhammad-Al-Kntawee.mp3" },
+{ title: "الناس", audio: "https://archive.org/download/way2sona_20160101_2152/An-Nas-Muhammad-Al-Kntawee.mp3" },
+
+    ]
+  },
+
+  { name: " عبد الرحمان بن موسى", image: "https://tvquran.com/uploads/authors/images/%D8%B9%D8%A8%D8%AF%20%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D9%86%20%D8%A8%D9%86%D9%85%D9%88%D8%B3%D9%89.jpg", tracks: [
+  { title: "الفاتحة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/001.mp3 " },
+{ title: "البقرة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/002.mp3 " },
+{ title: "آل عمران", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/003.mp3 " },
+{ title: "النساء", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/004.mp3 " },
+{ title: "المائدة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/005.mp3 " },
+{ title: "الأنعام", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/006.mp3 " },
+{ title: "الأعراف", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/007.mp3 " },
+{ title: "الأنفال", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/008.mp3 " },
+{ title: "التوبة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/009.mp3 " },
+{ title: "يونس", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/010.mp3 " },
+{ title: "هود", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/011.mp3 " },
+{ title: "يوسف", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/012.mp3 " },
+{ title: "الرعد", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/013.mp3 " },
+{ title: "ابراهيم", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/014.mp3 " },
+{ title: "الحجر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/015.mp3 " },
+{ title: "النحل", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/016.mp3 " },
+{ title: "الإسراء", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/017.mp3 " },
+{ title: "الكهف", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/018.mp3 " },
+{ title: "مريم", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/019.mp3 " },
+{ title: "طه", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/020.mp3 " },
+{ title: "الأنبياء", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/021.mp3 " },
+{ title: "الحج", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/022.mp3 " },
+{ title: "المؤمنون", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/023.mp3 " },
+{ title: "النور", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/024.mp3 " },
+{ title: "الفرقان", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/025.mp3 " },
+{ title: "الشعراء", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/026.mp3 " },
+{ title: "النمل", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/027.mp3 " },
+{ title: "القصص", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/028.mp3 " },
+{ title: "العنكبوت", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/029.mp3 " },
+{ title: "الروم", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/030.mp3 " },
+{ title: "لقمان", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/031.mp3 " },
+{ title: "السجدة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/032.mp3 " },
+{ title: "الأحزاب", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/033.mp3 " },
+{ title: "سبأ", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/034.mp3 " },
+{ title: "فاطر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/035.mp3 " },
+{ title: "يس", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/036.mp3 " },
+{ title: "الصافات", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/037.mp3 " },
+{ title: "سورة ص", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/038.mp3 " },
+{ title: "الزمر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/039.mp3 " },
+{ title: "غافر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/040.mp3 " },
+{ title: "فصلت", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/041.mp3 " },
+{ title: "الشورى", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/042.mp3 " },
+{ title: "الزخرف", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/043.mp3 " },
+{ title: "الدخان", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/044.mp3 " },
+{ title: "الجاثية", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/045.mp3 " },
+{ title: "الأحقاف", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/046.mp3 " },
+{ title: "محمد", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/047.mp3 " },
+{ title: "الفتح", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/048.mp3 " },
+{ title: "الحجرات", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/049.mp3 " },
+{ title: "سورة ق", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/050.mp3 " },
+{ title: "الذاريات", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/051.mp3 " },
+{ title: "الطور", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/052.mp3 " },
+{ title: "النجم", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/053.mp3 " },
+{ title: "القمر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/054.mp3 " },
+{ title: "الرحمن", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/055.mp3 " },
+{ title: "الواقعة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/056.mp3 " },
+{ title: "الحديد", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/057.mp3 " },
+{ title: "المجادلة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/058.mp3 " },
+{ title: "الحشر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/059.mp3 " },
+{ title: "الممتحنة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/060.mp3 " },
+{ title: "الصف", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/061.mp3 " },
+{ title: "الجمعة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/062.mp3 " },
+{ title: "المنافقون", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/063.mp3 " },
+{ title: "التغابن", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/064.mp3 " },
+{ title: "الطلاق", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/065.mp3 " },
+{ title: "التحريم", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/066.mp3 " },
+{ title: "الملك", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/067.mp3 " },
+{ title: "القلم", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/068.mp3 " },
+{ title: "الحاقة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/069.mp3 " },
+{ title: "المعارج", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/070.mp3 " },
+{ title: "نوح", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/071.mp3 " },
+{ title: "الجن", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/072.mp3 " },
+{ title: "المزمل", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/073.mp3 " },
+{ title: "المدثر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/074.mp3 " },
+{ title: "القيامة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/075.mp3 " },
+{ title: "الإنسان", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/076.mp3 " },
+{ title: "المرسلات", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/077.mp3 " },
+{ title: "النبأ", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/078.mp3 " },
+{ title: "النازعات", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/079.mp3 " },
+{ title: "عبس", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/080.mp3 " },
+{ title: "التكوير", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/081.mp3 " },
+{ title: "الإنفطار", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/082.mp3 " },
+{ title: "المطففين", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/083.mp3 " },
+{ title: "الانشقاق", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/084.mp3 " },
+{ title: "البروج", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/085.mp3 " },
+{ title: "الطارق", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/086.mp3 " },
+{ title: "الأعلى", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/087.mp3 " },
+{ title: "الغاشية", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/088.mp3 " },
+{ title: "الفجر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/089.mp3 " },
+{ title: "البلد", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/090.mp3 " },
+{ title: "الشمس", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/091.mp3 " },
+{ title: "الليل", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/092.mp3 " },
+{ title: "الضحى", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/093.mp3 " },
+{ title: "الشرح", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/094.mp3 " },
+{ title: "التين", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/095.mp3 " },
+{ title: "العلق", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/096.mp3 " },
+{ title: "القدر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/097.mp3 " },
+{ title: "البينة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/098.mp3 " },
+{ title: "الزلزلة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/099.mp3 " },
+{ title: "العاديات", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/100.mp3 " },
+{ title: "القارعة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/101.mp3 " },
+{ title: "التكاثر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/102.mp3 " },
+{ title: "العصر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/103.mp3 " },
+{ title: "الهمزة", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/104.mp3 " },
+{ title: "الفيل", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/105.mp3 " },
+{ title: "قريش", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/106.mp3 " },
+{ title: "الماعون", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/107.mp3 " },
+{ title: "الكوثر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/108.mp3 " },
+{ title: "الكافرون", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/109.mp3 " },
+{ title: "النصر", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/110.mp3 " },
+{ title: "المسد", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/111.mp3 " },
+{ title: "الإخلاص", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/112.mp3 " },
+{ title: "الفلق", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/113.mp3 " },
+{ title: "الناس", audio: " https://archive.org/download/rabieaaa2015_yahoo_00255/114.mp3 " },
+
+    ]
+  },
+
+  
+
+
+
+
+
+
+
+
+
+
+
+];
+
+const authorsDropdown = document.getElementById("authors");
+const tracksDropdown = document.getElementById("tracks");
+const authorImage = document.getElementById("author-image");
+const trackTitle = document.getElementById("track-title");
+const audioPlayer = document.getElementById("audio");
+const downloadBtn = document.getElementById("download-btn");
+
+// Populate authors dropdown
+authors.forEach(author => {
+  const option = document.createElement("option");
+  option.text = author.name;
+  authorsDropdown.add(option);
+});
+
+function populateTracks() {
+  const authorIndex = authorsDropdown.selectedIndex - 1;
+  tracksDropdown.innerHTML = "<option value=''>اختر السورة</option>";
+  if (authorIndex >= 0) {
+    const selectedAuthor = authors[authorIndex];
+    selectedAuthor.tracks.forEach(track => {
+      const option = document.createElement("option");
+      option.text = track.title;
+      tracksDropdown.add(option);
+    });
+    authorImage.src = selectedAuthor.image;
+  } else {
+    authorImage.src = "";
+  }
+}
+
+//--------------------------------
+function changeTrack() {
+  const authorIndex = authorsDropdown.selectedIndex - 1;
+  const trackIndex = tracksDropdown.selectedIndex - 1;
+  if (authorIndex >= 0 && trackIndex >= 0) {
+    const selectedAuthor = authors[authorIndex];
+    const selectedTrack = selectedAuthor.tracks[trackIndex];
+    trackTitle.textContent = selectedTrack.title;
+    audioPlayer.src = selectedTrack.audio;
+    downloadBtn.href = selectedTrack.audio; // Correction du lien de téléchargement
+  } else {
+    trackTitle.textContent = "عنوان المقطع";
+    audioPlayer.src = "";
+    downloadBtn.href = ""; // Assurez-vous que le lien est vide lorsque rien n'est sélectionné
+  }
+}
+
+
+
+</script>
+  <footer>
+    <p class="lahrech"> LAHRECH HASSAN</p>
+    <p>Email: quran.morocco.reciters@gmail.com    </p>
+  </footer>
+  
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+</body>
+</body>
+
+</html>

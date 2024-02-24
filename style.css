@@ -1,0 +1,133 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Noto+Sans+Arabic:wght@100..900&family=Reem+Kufi+Ink&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+/* Réinitialisation des styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styles de base pour le corps de la page */
+body {
+    font-family: "Cairo", sans-serif;
+    direction: rtl; /* Alignement Right-to-Left */
+    text-align: right; /* Alignement du texte à droite */
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+/************************************************/
+.marquee-rtl {
+    max-width: 30em;                      /* largeur de la fenêtre */
+    margin: 1em auto 2em;
+    border: 10px solid #F0F0FF;
+    overflow: hidden;                     /* masque tout ce qui dépasse */
+    box-shadow: 0 .25em .5em #CCC,inset 0 0 1em .25em #CCC;
+    animation-name: defilement-rtl;       /* référence à la règle @keyframes mise en oeuvre */
+  animation-duration: 15s;              /* valeur à ajuster suivant la longueur du message */
+  animation-iteration-count: infinite;  /* boucle continue */
+  animation-timing-function: linear;    /* pas vraiment utile ici */
+  }
+/************************************************/
+button {
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    }
+    /********************************************/
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+/* Titre de la page */
+.page-title {
+    font-family: "Reem Kufi Ink", sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    
+}
+
+/* Styles pour la section du lecteur audio */
+#audio-player {
+    margin-bottom: 20px;
+}
+
+/* Styles pour la section des informations sur le podcast */
+#podcast-info {
+    margin-bottom: 20px;
+}
+
+#podcast-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#podcast-logo {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease-in-out; /* Animation de transition */
+}
+
+#podcast-logo:hover {
+    transform: scale(1.1); /* Effet de zoom au survol */
+}
+
+/* Styles pour la section des listes déroulantes */
+#dropdowns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+select {
+    font-family: "Cairo", sans-serif;
+    width: calc(33.33% - 10px); /* Pour répartir équitablement sur la ligne */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out; /* Animation de transition */
+}
+
+select:hover {
+    border-color: #10a843; /* Changement de couleur de la bordure au survol */
+}
+
+/* Style pour le lecteur audio */
+#audio-control {
+    width: 100%;
+}
+
+/* Ajoutez vos autres styles CSS personnalisés ici */
+
+/* Styles pour la version responsive */
+@media screen and (max-width: 768px) {
+    select {
+        width: 100%; /* Les listes déroulantes prennent toute la largeur sur les petits écrans */
+        margin-bottom: 10px;
+    }
+}
+
+/********************************/
+
+/************************************/
